@@ -1221,6 +1221,123 @@ public class test {
 		});
 		createButton.setBounds(6, 165, 130, 23);
 		JButton adminButton = new JButton("Admin Page");
+		
+		JFrame registerFrame = new JFrame();
+		registerFrame.setVisible(false);
+		
+		JButton adminRegisterButton = new JButton("Register");
+		adminRegisterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				registerFrame.setVisible(true);
+			}
+		});
+		adminRegisterButton.setBounds(12, 234, 89, 23);
+		
+		
+		
+		String[] rgender={"Female","Male","Other","Prefer Not To Say"};
+		JLabel rnameLabel=new JLabel("NAME");
+		JLabel rgenderLabel=new JLabel("GENDER");
+		JLabel rsurnameLabel=new JLabel("SURNAME");
+		JLabel rpasswordLabel=new JLabel("PASSWORD");
+		JLabel rconfirmPasswordLabel=new JLabel("CONFIRM PASSWORD");
+		JLabel raddressLabel=new JLabel("ADDRESS");
+		JLabel remailLabel=new JLabel("EMAIL");
+		JTextField rnameTextField=new JTextField();
+		JComboBox rgenderComboBox=new JComboBox(rgender);
+		JTextField rsurnameTextField=new JTextField();
+		JPasswordField rpasswordField=new JPasswordField();
+		JPasswordField rconfirmPasswordField=new JPasswordField();
+		JTextField raddressTextField=new JTextField();
+		JTextField remailTextField=new JTextField();
+		JButton rloginButton=new JButton("LOGIN");
+		JButton rregisterButton=new JButton("REGISTER");
+		JButton rresetButton=new JButton("RESET");
+		
+		rnameLabel.setBounds(20,20,40,70);
+	    rgenderLabel.setBounds(20,70,80,70);
+	    rsurnameLabel.setBounds(20,120,100,70);
+	    rpasswordLabel.setBounds(20,170,100,70);
+	    rconfirmPasswordLabel.setBounds(20,220,140,70);
+	    raddressLabel.setBounds(20,270,100,70);
+	    remailLabel.setBounds(20,320,100,70);
+	    rnameTextField.setBounds(180,43,165,23);
+	    rgenderComboBox.setBounds(180,93,165,23);
+	    rsurnameTextField.setBounds(180,143,165,23);
+	    rpasswordField.setBounds(180,193,165,23);
+	    rconfirmPasswordField.setBounds(180,243,165,23);
+	    raddressTextField.setBounds(180,293,165,23);
+	    remailTextField.setBounds(180,343,165,23);
+	    rloginButton.setBounds(110,500,100,35);
+	    rregisterButton.setBounds(10,500,100,35);
+	    rresetButton.setBounds(200,500,100,35);
+	    
+	    registerFrame.add(rnameLabel);
+	    registerFrame.add(rgenderLabel);
+	    registerFrame.add(rsurnameLabel);
+	    registerFrame.add(rpasswordLabel);
+	    registerFrame.add(rconfirmPasswordLabel);
+	    registerFrame.add(raddressLabel);
+	    registerFrame.add(remailLabel);
+	    registerFrame.add(rnameTextField);
+	    registerFrame.add(rgenderComboBox);
+	    registerFrame.add(rsurnameTextField);
+	    registerFrame.add(rpasswordField);
+	    registerFrame.add(rconfirmPasswordField);
+	    registerFrame.add(raddressTextField);
+	    registerFrame.add(remailTextField);
+	    registerFrame.add(rloginButton);
+	    registerFrame.add(rregisterButton);
+	    registerFrame.add(rresetButton);
+	    
+	    rregisterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+	                //Creating Connection Object
+	                Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/medical_info","root","qwerty");
+	                PreparedStatement Pstatement=connection.prepareStatement("insert into login values(?,?,?,?,?,?,?,?,?)");
+	                //Specifying the values of it's parameter
+	                Pstatement.setString(1,rnameTextField.getText());
+	                Pstatement.setString(2,rgenderComboBox.getSelectedItem().toString());
+	                Pstatement.setString(3,rsurnameTextField.getText());
+	                Pstatement.setString(4,rpasswordField.getText());
+	                Pstatement.setString(5,rconfirmPasswordField.getText());
+	                Pstatement.setString(6,raddressTextField.getText());
+	                Pstatement.setString(7,remailTextField.getText());
+	                //Checking if the Passwords match
+	                if(passwordField.getText().equalsIgnoreCase(rconfirmPasswordField.getText()))
+	                {
+	                    //Executing query
+	                    Pstatement.executeUpdate();
+	                    JOptionPane.showMessageDialog(null,"Registered Successfully");
+	                }
+	                else
+	                {
+	                    JOptionPane.showMessageDialog(null,"password doesn't match");
+	                }
+	 
+	            } catch (SQLException e1) {
+	                e1.printStackTrace();
+	            }
+	 
+	 
+				}
+			}
+			);
+	    rresetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+	    
+	    registerFrame.setTitle("REGISTER");
+	    registerFrame.setBackground(Color.white);
+	    registerFrame.getContentPane().setFont(new Font("Tahoma", Font.BOLD, 15));
+	    registerFrame.setBounds(200, 200, 500, 600);
+	    registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    registerFrame.getContentPane().setLayout(null);
+	    registerFrame.setResizable(false);
+		
+		
 		adminButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		adminButton.setBounds(393, 382, 174, 40);
 		adminButton.addActionListener(new ActionListener() {
@@ -1230,6 +1347,7 @@ public class test {
 			}
 		});
 		login.getContentPane().add(adminButton);
+		admin.getContentPane().add(adminRegisterButton);
 		admin.getContentPane().add(createButton);
 		admin.setSize(500,306);
 		login.setVisible(true);
@@ -1249,4 +1367,3 @@ public class test {
 			
 		}
 }
-
